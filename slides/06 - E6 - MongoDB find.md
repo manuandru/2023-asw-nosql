@@ -82,41 +82,89 @@ db.restaurants
 ## Yelp business
 11. Visualizzare tutti i business che hanno ricevuto almeno 10 recensioni (review_count) E si trovano in Arizona o in Nevada (state = NV o AZ) 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      "$and":[
+          {"review_count": {"$gte":10}},
+          {"state": {"$in":["NV", "AZ"]}}
+      ]
+  })
 ```
 
 
 12. Visualizzare tutti i business che hanno ricevuto almeno 10 recensioni (review_count) O si trovano in Arizona o in Nevada (state = NV o AZ) 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      "$or":[
+          {"review_count": {"$gte":10}},
+          {"state": {"$in":["NV", "AZ"]}}
+      ]
+  })
 ```
 
 
 13. Visualizzare tutti i business che hanno Grocery tra le categorie 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      categories:"Grocery"
+  })
 ```
 
 
 14. Visualizzare tutti i business che hanno Grocery E Food tra le categorie 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      categories:{
+          $all: ["Grocery", "Food"]
+      }
+  })
 ```
 
 
 15. Visualizzare tutti i business che hanno Grocery O Food tra le categorie 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      $or: [
+          {categories: "Grocery"},
+          {categories: "Food"}
+      ]
+  })
 ```
 
 
 16. Visualizzare tutti i business che hanno SOLAMENTE Grocery E Food tra le categorie 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      categories:["Grocery", "Food"]
+  })
 ```
 
 
 17. Visualizzare tutti i business che hanno 5 categorie 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      categories: {
+          $size: 5
+      }
+  })
 ```
 
 
 18. Visualizzare tutti i business che hanno 5 categorie e la quinta categoria è Food 
 ```javascript
+db.getCollection("yelp-business")
+  .find({
+      $and: [
+          {categories: {$size: 5}},
+          {"categories.4": "Food"}
+      ]
+  })
 ```
 
 
