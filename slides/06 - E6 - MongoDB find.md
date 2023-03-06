@@ -207,16 +207,32 @@ db.getCollection("yelp-business")
 
 24. Visualizzare le partite disputate nel 2010. (1239 risultati). Formato data: "anno-mese-giorno"
 ```javascript
+db.getCollection("games")
+  .find({
+      date: {
+          $gt: new Date("2010-01-01"),
+          $lt: new Date("2010-12-31")
+      }
+  })
 ```
 
 
 25. Visualizzare le partite in cui una delle squadre ha totalizzato almeno 160 punti (6 risultati)
 ```javascript
+db.getCollection("games")
+  .find({"teams.score": {$gt: 160}})
 ```
 
 
 26. Visualizzare le partite in cui la squadra di casa ha perso (12197 risultati)
 ```javascript
+db.getCollection("games")
+  .find({
+      $or: [
+          {"teams.0.home": true, "teams.0.won": 0},
+          {"teams.1.home": true, "teams.1.won": 0}
+      ]
+  })
 ```
 
 
