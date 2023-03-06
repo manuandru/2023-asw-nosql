@@ -170,26 +170,36 @@ db.getCollection("yelp-business")
 
 19. Visualizzare le prime due categorie di ogni business 
 ```javascript
+db.getCollection("yelp-business")
+  .find({}, {"_id":1, categories:{$slice: 2}})
 ```
 
 
 20. Visualizzare unicamente le categorie dei business del Nevada 
 ```javascript
+db.getCollection("yelp-business")
+  .distinct("categories", {state: "NV"})
 ```
 
 
 21. Visualizzare i valori distinti del campo city
 ```javascript
+db.getCollection("yelp-business")
+  .distinct("city")
 ```
 
 
 22. Visualizzare i valori distinti del campo city nello stato del Nevada
 ```javascript
+db.getCollection("yelp-business")
+  .distinct("city", {state: "NV"})
 ```
 
 
 23. Visualizzare i valori distinti dell’array categories
 ```javascript
+db.getCollection("yelp-business")
+  .distinct("categories")
 ```
 
 
