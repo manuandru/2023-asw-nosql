@@ -238,6 +238,10 @@ db.getCollection("games")
 
 27. Visualizzare le partite in cui ha giocato Michael Jordan (990 risultati)
 ```javascript
+db.getCollection("games")
+  .find({
+      "box.players.player": "Michael Jordan"
+  })
 ```
 
 
